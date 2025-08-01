@@ -56,6 +56,7 @@ class Config:
     APP_TITLE = "🔮 Prédictions Automatiques - Matchs du Jour"
     PAGE_ICON = "🔮"
     LAYOUT = "wide"
+    LEAGUES = ["Premier League", "La Liga", "Serie A", "Bundesliga", "Ligue 1", "Ligue 2", "FA Cup", "Champions League", "Europa League"]
 
 # Classes simplifiées pour Streamlit Cloud
 class ValidationManager:
@@ -426,13 +427,17 @@ class PinnacleDataCollector:
         today = datetime.now().strftime('%Y-%m-%d')
         
         demo_matches = []
-        leagues = ['Premier League', 'La Liga', 'Serie A', 'Bundesliga', 'Ligue 1']
+        leagues = Config.LEAGUES
         teams = {
             'Premier League': ['Arsenal', 'Chelsea', 'Liverpool', 'Man City', 'Man United', 'Tottenham', 'Brighton', 'Newcastle'],
             'La Liga': ['Barcelona', 'Real Madrid', 'Atletico', 'Valencia', 'Sevilla', 'Betis', 'Villarreal', 'Real Sociedad'],
             'Serie A': ['Juventus', 'Milan', 'Inter', 'Napoli', 'Roma', 'Lazio', 'Atalanta', 'Fiorentina'],
             'Bundesliga': ['Bayern', 'Dortmund', 'Leipzig', 'Leverkusen', 'Frankfurt', 'Wolfsburg', 'Stuttgart', 'Hoffenheim'],
-            'Ligue 1': ['PSG', 'Lyon', 'Marseille', 'Monaco', 'Nice', 'Rennes', 'Lille', 'Montpellier']
+            'Ligue 1': ['PSG', 'Lyon', 'Marseille', 'Monaco', 'Nice', 'Rennes', 'Lille', 'Montpellier'],
+            'Ligue 2': ['Auxerre', 'Bordeaux', 'Angers', 'Saint-Etienne', 'Metz', 'Caen', 'Laval', 'Rodez'],
+            'FA Cup': ['Arsenal', 'Chelsea', 'Liverpool', 'Man City', 'Man United', 'Tottenham', 'Leeds', 'Everton'],
+            'Champions League': ['Real Madrid', 'Man City', 'Bayern', 'PSG', 'Barcelona', 'Inter', 'Dortmund', 'Atletico'],
+            'Europa League': ['Liverpool', 'Roma', 'Sevilla', 'Leverkusen', 'Atalanta', 'West Ham', 'Villarreal', 'Real Sociedad']
         }
         
         # Générer 12 matchs pour aujourd'hui
@@ -790,13 +795,17 @@ def create_historical_data(db_manager: DatabaseManager):
     with st.spinner("🔄 Création de la base de données historique..."):
         progress_bar = st.progress(0)
         
-        leagues = ['Premier League', 'La Liga', 'Serie A', 'Bundesliga', 'Ligue 1']
+        leagues = Config.LEAGUES
         teams = {
             'Premier League': ['Arsenal', 'Chelsea', 'Liverpool', 'Man City', 'Man United', 'Tottenham'],
             'La Liga': ['Barcelona', 'Real Madrid', 'Atletico', 'Valencia', 'Sevilla', 'Betis'],
             'Serie A': ['Juventus', 'Milan', 'Inter', 'Napoli', 'Roma', 'Lazio'],
             'Bundesliga': ['Bayern', 'Dortmund', 'Leipzig', 'Leverkusen', 'Frankfurt', 'Wolfsburg'],
-            'Ligue 1': ['PSG', 'Lyon', 'Marseille', 'Monaco', 'Nice', 'Rennes']
+            'Ligue 1': ['PSG', 'Lyon', 'Marseille', 'Monaco', 'Nice', 'Rennes'],
+            'Ligue 2': ['Auxerre', 'Bordeaux', 'Angers', 'Saint-Etienne', 'Metz', 'Caen'],
+            'FA Cup': ['Arsenal', 'Chelsea', 'Liverpool', 'Man City', 'Man United', 'Tottenham'],
+            'Champions League': ['Real Madrid', 'Man City', 'Bayern', 'PSG', 'Barcelona', 'Inter'],
+            'Europa League': ['Liverpool', 'Roma', 'Sevilla', 'Leverkusen', 'Atalanta', 'West Ham']
         }
         
         # Créer 500 matchs historiques

@@ -21,6 +21,7 @@ cd pinnacle-betting-systemInstaller les dépendancespip install -r requirements.
 DATABASE_PATH=data/football_odds.db
 SIMILARITY_THRESHOLD=0.90
 MIN_SIMILAR_MATCHES=10Paramètres principauxSeuil de similarité: 90% par défautNombre min de matchs: 10 par défautMéthodes de similarité: cosinus, euclidienne, pourcentage📊 Structure des donnéesMarchés analysés1X2: Victoire domicile/nul/extérieurO/U 2.5: Plus/moins de 2.5 butsBTTS: Both Teams To Score (futur)Base de donnéesmatches: Données des matchs avec cotes et résultats
+LEAGUES=Premier League,La Liga,Serie A,Bundesliga,Ligue 1,Ligue 2,FA Cup,Champions League,Europa League
 - **leagues**: Informations sur les ligues
 - **similarity_cache**: Cache des résultats de similarité
 

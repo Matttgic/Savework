@@ -51,6 +51,7 @@ class Config:
     APP_TITLE = "⚽ Système de Paris Pinnacle - Similarité des Cotes"
     PAGE_ICON = "⚽"
     LAYOUT = "wide"
+    LEAGUES = ["Premier League", "La Liga", "Serie A", "Bundesliga", "Ligue 1", "Ligue 2", "FA Cup", "Champions League", "Europa League"]
 
 # Classes simplifiées pour Streamlit Cloud
 class ValidationManager:
@@ -460,13 +461,17 @@ def create_sample_data(db_manager: DatabaseManager):
     """Crée des données d'exemple"""
     import random
     
-    leagues = ['Premier League', 'La Liga', 'Serie A', 'Bundesliga', 'Ligue 1']
+    leagues = Config.LEAGUES
     teams = [
         ['Arsenal', 'Chelsea', 'Liverpool', 'Man City', 'Man United', 'Tottenham'],
         ['Barcelona', 'Real Madrid', 'Atletico', 'Valencia', 'Sevilla', 'Betis'],
         ['Juventus', 'Milan', 'Inter', 'Napoli', 'Roma', 'Lazio'],
         ['Bayern', 'Dortmund', 'Leipzig', 'Leverkusen', 'Frankfurt', 'Wolfsburg'],
-        ['PSG', 'Lyon', 'Marseille', 'Monaco', 'Nice', 'Rennes']
+        ['PSG', 'Lyon', 'Marseille', 'Monaco', 'Nice', 'Rennes'],
+        ['Auxerre', 'Bordeaux', 'Angers', 'Saint-Etienne', 'Metz', 'Caen'],
+        ['Arsenal', 'Chelsea', 'Liverpool', 'Man City', 'Man United', 'Tottenham'],
+        ['Real Madrid', 'Man City', 'Bayern', 'PSG', 'Barcelona', 'Inter', 'Dortmund', 'Atletico'],
+        ['Liverpool', 'Roma', 'Sevilla', 'Leverkusen', 'Atalanta', 'West Ham', 'Villarreal', 'Real Sociedad']
     ]
     
     progress_bar = st.progress(0)

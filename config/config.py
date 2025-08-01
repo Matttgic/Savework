@@ -55,6 +55,7 @@ class Config:
     
     # Development
     DEBUG = os.getenv('DEBUG', 'false').lower() == 'true'
+    LEAGUES = [l.strip() for l in os.getenv("LEAGUES", "Premier League,La Liga,Serie A,Bundesliga,Ligue 1,Ligue 2,FA Cup,Champions League,Europa League").split(",")]
     
     # Markets Configuration
     MARKETS = {
