@@ -40,12 +40,18 @@ class OddsSimilarityEngine:
                     odds_data['under_25_odds']
                 ])
             elif isinstance(odds_data, dict):
+                # Vérifier la présence des champs requis (sous l'un ou l'autre format)
+                required = ['home', 'draw', 'away', 'over_25', 'under_25']
+                missing = [k for k in required if k not in odds_data and f"{k}_odds" not in odds_data]
+                if missing:
+                    raise KeyError(','.join(missing))
+
                 vector = np.array([
-                    odds_data.get('home', odds_data.get('home_odds')),
-                    odds_data.get('draw', odds_data.get('draw_odds')),
-                    odds_data.get('away', odds_data.get('away_odds')),
-                    odds_data.get('over_25', odds_data.get('over_25_odds')),
-                    odds_data.get('under_25', odds_data.get('under_25_odds'))
+                    odds_data['home'] if 'home' in odds_data else odds_data['home_odds'],
+                    odds_data['draw'] if 'draw' in odds_data else odds_data['draw_odds'],
+                    odds_data['away'] if 'away' in odds_data else odds_data['away_odds'],
+                    odds_data['over_25'] if 'over_25' in odds_data else odds_data['over_25_odds'],
+                    odds_data['under_25'] if 'under_25' in odds_data else odds_data['under_25_odds']
                 ])
             else:
                 raise SimilarityError(f"Unsupported data format: {type(odds_data)}")
@@ -56,6 +62,10 @@ class OddsSimilarityEngine:
             
             return vector
             
+        except KeyError as e:
+            # Propager l'erreur de champ manquant pour une gestion plus fine
+            self.logger.error(f"Missing odds data: {e}")
+            raise
         except Exception as e:
             self.logger.error(f"Error creating odds vector: {e}")
             raise SimilarityError(f"Failed to create odds vector: {e}")
@@ -68,9 +78,12 @@ class OddsSimilarityEngine:
                 raise SimilarityError("Vectors must have the same length")
             
             similarity = cosine_similarity([vector1], [vector2])[0][0]
-            
-            # S'assurer que le résultat est dans [0, 1]
-            return max(0.0, min(1.0, similarity))
+
+            # Convertir l'angle en score de similarité pour de meilleurs contrastes
+            angle = np.arccos(np.clip(similarity, -1.0, 1.0))
+            similarity_score = 1 - angle / np.pi
+
+            return max(0.0, min(1.0, similarity_score))
             
         except Exception as e:
             self.logger.error(f"Error in cosine similarity calculation: {e}")

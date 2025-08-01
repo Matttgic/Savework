@@ -73,7 +73,7 @@ class TestSimilarityEngine(unittest.TestCase):
     def test_similarity_euclidean(self):
         """Test de la similarité euclidienne"""
         vector1 = self.engine.calculate_odds_vector(self.test_odds_1)
-vector2 = self.engine.calculate_odds_vector(self.test_odds_2)
+        vector2 = self.engine.calculate_odds_vector(self.test_odds_2)
         vector3 = self.engine.calculate_odds_vector(self.test_odds_different)
         
         # Similarité entre cotes similaires

@@ -533,7 +533,7 @@ class DatabaseManager:
             return {}
     
     @ErrorHandler.handle_database_error  
-    def clear_similarity_cache(self, older_than_hours: int = 24) -> int:
+    def clear_similarity_cache(self, older_than_hours: int = 0) -> int:
         """Vide le cache de similarité avec option de nettoyage sélectif"""
         start_time = datetime.now()
         
