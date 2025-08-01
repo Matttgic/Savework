@@ -16,11 +16,44 @@ Un système intelligent d'analyse de paris sportifs basé sur la similarité des
 1. **Cloner le repository**
 ```bash
 git clone https://github.com/votre-username/pinnacle-betting-system.git
-cd pinnacle-betting-systemInstaller les dépendancespip install -r requirements.txtConfigurationcp .env.example .env
-# Éditer .env avec votre clé APICréer les répertoiresmkdir data🚀 Utilisation1. Collecte des données historiquespython scripts/collect_historical_data.py --max-events 50002. Lancer l'applicationstreamlit run app/streamlit_app.py3. Utiliser l'interfaceSaisir les cotes d'un match à venirAjuster les paramètres de similaritéAnalyser les résultats basés sur l'historique🔧 ConfigurationVariables d'environnement (.env)RAPIDAPI_KEY=votre_cle_api_ici
+cd pinnacle-betting-system
+```
+
+2. **Installer les dépendances**
+```bash
+pip install -r requirements.txt
+```
+
+3. **Configuration**
+```bash
+cp .env.example .env
+# Éditer .env avec votre clé API
+mkdir data
+```
+
+## 🚀 Utilisation
+1. Collecte des données historiques
+```bash
+python scripts/collect_historical_data.py --max-events 5000
+```
+2. Lancer l'application
+```bash
+streamlit run app/streamlit_app.py
+```
+3. Utiliser l'interface
+Saisir les cotes d'un match à venir
+Ajuster les paramètres de similarité
+Analyser les résultats basés sur l'historique
+
+## 🔧 Configuration
+Variables d'environnement (.env)
+```bash
+RAPIDAPI_KEY=votre_cle_api_ici
 DATABASE_PATH=data/football_odds.db
 SIMILARITY_THRESHOLD=0.90
-MIN_SIMILAR_MATCHES=10Paramètres principauxSeuil de similarité: 90% par défautNombre min de matchs: 10 par défautMéthodes de similarité: cosinus, euclidienne, pourcentage📊 Structure des donnéesMarchés analysés1X2: Victoire domicile/nul/extérieurO/U 2.5: Plus/moins de 2.5 butsBTTS: Both Teams To Score (futur)Base de donnéesmatches: Données des matchs avec cotes et résultats
+MIN_SIMILAR_MATCHES=10
+ALLOWED_LEAGUES=premier_league,la_liga,serie_a
+```
 - **leagues**: Informations sur les ligues
 - **similarity_cache**: Cache des résultats de similarité
 
